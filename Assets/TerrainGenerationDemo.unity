@@ -306,7 +306,7 @@ MonoBehaviour:
   lacunarity: 2
   persistence: .5
   octaves: 6
-  seed: 0
+  seed: 5
   qualitySetting: medium
   terrain: {fileID: 1675022856}
 --- !u!1 &1675022854
