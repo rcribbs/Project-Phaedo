@@ -87,7 +87,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 600
+      value: 600.358337
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
       propertyPath: m_LocalPosition.z
@@ -108,6 +108,14 @@ Prefab:
     - target: {fileID: 400002, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
@@ -297,7 +305,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1460118934}
-  m_LocalRotation: {x: .408217937, y: -.234569728, z: .109381676, w: .875426054}
+  m_LocalRotation: {x: .408217967, y: -.234569743, z: .109381683, w: .875426114}
   m_LocalPosition: {x: 1594.09717, y: 1295.77185, z: 898.563232}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -359,6 +367,7 @@ GameObject:
   - 4: {fileID: 1675022857}
   - 114: {fileID: 1675022856}
   - 154: {fileID: 1675022855}
+  - 54: {fileID: 1675022858}
   m_Layer: 0
   m_Name: Terrain
   m_TagString: Untagged
@@ -372,7 +381,7 @@ TerrainCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1675022854}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d8e37a420a56d28448d8b857452006aa, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_TerrainData: {fileID: 15600000, guid: bc1a312cb374c49fc99bf0551fb44855, type: 2}
@@ -413,6 +422,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!54 &1675022858
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675022854}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1725425721
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,8 +579,8 @@ GameObject:
   - 64: {fileID: 1787816833}
   - 114: {fileID: 1787816832}
   m_Layer: 0
-  m_Name: RyderPrefab
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -572,8 +596,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63d6a57886d46475f80895f29f080439, type: 3}
   m_Name: 
-  walkSpeed: 12
-  jumpSpeed: 12
+  WalkSpeed: 12
+  JumpStrength: 280
+  JumpingSurfaceAngleStrictness: .699999988
 --- !u!64 &1787816833
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -624,7 +649,7 @@ Transform:
   m_PrefabInternal: {fileID: 420109206}
   m_GameObject: {fileID: 1787816831}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 157.091415, y: 600, z: 456.719971}
+  m_LocalPosition: {x: 157.091415, y: 600.358337, z: 456.719971}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1978857970}
