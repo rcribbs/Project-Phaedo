@@ -6,3 +6,5 @@
 *.csproj
 *.unityproj
 *.sln
+Assembly-CSharp.pidb
+Project Phaedo.userprefs
