@@ -25,7 +25,7 @@ public class MakeTerrain : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		GenerateTerrain();
+		//GenerateTerrain();
 	}
 	
 	/// <summary>

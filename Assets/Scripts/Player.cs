@@ -1,12 +1,17 @@
 using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
-	public float WalkSpeed = 12;
-	public float JumpStrength = 280;  //amount of force in a jump
+[RequireComponent( typeof( Rigidbody ) )]
+
+public class Player : MonoBehaviour
+{
+	
+	public float WalkSpeed = 8;
+	public float MidAirSpeed = 8;
+	public float JumpStrength = 280;
 	public float JumpingSurfaceAngleStrictness = 0.7f;  //between 0 to 1; higher value requires flatter surface
 	
-	bool TouchingGround = true; //whether player is touching the floor
+	bool m_TouchingGround = true;
 	
 	private float m_horizontalRotation = 0;
 	
@@ -19,18 +24,27 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		/* Check if grounded */
 		
+	}
+	
+	void FixedUpdate ()
+	{
+		/* Lateral movement */
+		if( m_TouchingGround )
+		{
+			MoveOnGround();
+		}
+		else
+		{
+			MoveInAir();
+		}
 		
-		float horizontalDirection = Input.GetAxis( "Horizontal" );
-		float verticalDirection = Input.GetAxis( "Vertical" );
-		
-		
-		
+		/* Jumping */
 		if( Input.GetButtonDown("Jump") )
 		{
-			if( TouchingGround ){
-				rigidbody.AddForce(0, JumpStrength, 0);
+			if( m_TouchingGround )
+			{
+				rigidbody.AddForce( 0, JumpStrength, 0 );
 			}
 		}
 	}
@@ -39,7 +53,7 @@ public class Player : MonoBehaviour {
 	{
 		if( ContactPointIsJumpoffable( collision))
 		{
-			TouchingGround = true;
+			m_TouchingGround = true;
 		}
 	}
 	
@@ -47,11 +61,11 @@ public class Player : MonoBehaviour {
 	{
 		if( ContactPointIsJumpoffable( collision ))
 		{
-			TouchingGround = false;
+			m_TouchingGround = false;
 		}
 	}
 	
-	private bool ContactPointIsJumpoffable (Collision collision)
+	private bool ContactPointIsJumpoffable( Collision collision )
 	{
 		foreach( ContactPoint contactPoint in collision.contacts )
 		{
@@ -69,6 +83,7 @@ public class Player : MonoBehaviour {
 		return false;
 	}
 	
+
 	/// <summary>
 	/// Rotates the player with the camera.
 	/// </summary>
@@ -79,5 +94,23 @@ public class Player : MonoBehaviour {
 	{
 		m_horizontalRotation = horizontalRotation;
 		transform.rotation = Quaternion.Euler( transform.forward + new Vector3( 0, m_horizontalRotation, 0) );
+	}
+	
+	/* Instantaneous velocity change, a la CharacterController movement */
+	private void MoveOnGround()
+	{
+		Vector3 targetVelocity = new Vector3( Input.GetAxisRaw( "Horizontal" ) * WalkSpeed - rigidbody.velocity.x,
+										0,
+										Input.GetAxisRaw( "Vertical" ) * WalkSpeed - rigidbody.velocity.z );
+		rigidbody.AddForce( targetVelocity , ForceMode.VelocityChange );
+	}
+	
+	/* Gradual velocity change */
+	private void MoveInAir()
+	{
+		Vector3 velocityChange = new Vector3( Input.GetAxisRaw( "Horizontal" ) * MidAirSpeed,
+												0,
+												Input.GetAxisRaw( "Vertical" ) * MidAirSpeed );
+		rigidbody.AddForce( velocityChange );
 	}
 }
