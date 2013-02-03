@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
 	bool m_TouchingGround = true;
 	
 	private float m_horizontalRotation = 0;
-	private bool isWalking = false;
 	
 	// Use this for initialization
 	void Start ()
@@ -96,48 +95,19 @@ public class Player : MonoBehaviour
 		m_horizontalRotation = horizontalRotation;
 		transform.rotation = Quaternion.Euler( transform.forward + new Vector3( 0, m_horizontalRotation, 0) );
 	}
-	/// <summary>
-	/// Instantaneous velocity change, a la CharacterController movement
-	/// </summary>
+	
+	/* Instantaneous velocity change, a la CharacterController movement */
 	private void MoveOnGround()
 	{
-//------------------- Rohan: Modified your code a little to work better with rotation. -------------------
-		// Only apply impulses if we're actually pressing the key.
-		if ( ( Input.GetAxis("Vertical") != 0 ) || ( Input.GetAxis("Horizontal") != 0 ) )
-		{
-			// Use the rotation of the character in the calculation for which direction is forward/backward/left/right.
-			Vector3 forwardVelocity = transform.forward * Input.GetAxisRaw( "Vertical" ) * Time.deltaTime * WalkSpeed;
-			Vector3 sideVelocity = transform.right * Input.GetAxisRaw( "Horizontal" ) * Time.deltaTime * WalkSpeed;
-			// The target velocity is the sum of these two velocities.
-			Vector3 targetVelocity = forwardVelocity + sideVelocity;
-			rigidbody.AddForce( targetVelocity , ForceMode.VelocityChange );
-			// Signify that we have pressed the key, so releasing the key will cause the player to stop.
-			isWalking = true;
-		}
-		else if ( m_TouchingGround && isWalking )
-			// If we were walking and we're currently touching the ground, half the player's speed
-			// so that they can transition into a stop more naturally.
-		{
-			rigidbody.velocity = rigidbody.velocity * .5f;
-			isWalking = false;
-		}
-//------------------- Rohan: This is where my modifications end. --------------------------------------------
-		
-		/*
-		 * Rohan: I've preserved your code down here.
 		Vector3 targetVelocity = new Vector3( Input.GetAxisRaw( "Horizontal" ) * WalkSpeed - rigidbody.velocity.x,
 										0,
 										Input.GetAxisRaw( "Vertical" ) * WalkSpeed - rigidbody.velocity.z );
 		rigidbody.AddForce( targetVelocity , ForceMode.VelocityChange );
-		*/
 	}
 	
-	/// <summary>
-	/// Gradual velocity change.
-	/// </summary>
+	/* Gradual velocity change */
 	private void MoveInAir()
 	{
-		Debug.Log("You are in the air");
 		Vector3 velocityChange = new Vector3( Input.GetAxisRaw( "Horizontal" ) * MidAirSpeed,
 												0,
 												Input.GetAxisRaw( "Vertical" ) * MidAirSpeed );
