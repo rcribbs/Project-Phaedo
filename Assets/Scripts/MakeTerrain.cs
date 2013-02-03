@@ -28,6 +28,9 @@ public class MakeTerrain : MonoBehaviour
 		GenerateTerrain();
 	}
 	
+	/// <summary>
+	/// Generates the terrain.
+	/// </summary>
 	void GenerateTerrain()
 	{
 		QualityMode quality;

@@ -117,6 +117,34 @@ Prefab:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_SmoothSphereCollisions
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 5400000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
+      propertyPath: m_AnimatePhysics
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c4a6907e3fb6487f8e2184da6d5da40, type: 2}
   m_RootGameObject: {fileID: 1787816831}
@@ -181,6 +209,7 @@ GameObject:
   - 92: {fileID: 1443444122}
   - 124: {fileID: 1443444121}
   - 81: {fileID: 1443444120}
+  - 114: {fileID: 1443444125}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -243,11 +272,26 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1443444119}
-  m_LocalRotation: {x: .360687137, y: 0, z: 0, w: .932686925}
+  m_LocalRotation: {x: 0, y: .328092188, z: 0, w: .944645762}
   m_LocalPosition: {x: 1138.37634, y: 1472.20007, z: -858.030518}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1443444125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1443444119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0fac9b055044820a75619fbbe831fc, type: 3}
+  m_Name: 
+  target: {fileID: 1787816831}
+  dampTime: .300000012
+  distance: 10
+  lookSpeed: 90
+  inverted: 0
 --- !u!1 &1460118934
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +622,7 @@ GameObject:
   - 54: {fileID: 1787816834}
   - 64: {fileID: 1787816833}
   - 114: {fileID: 1787816832}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -610,7 +654,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
+  m_SmoothSphereCollisions: 1
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 2c236d3274d3b4618a62dcbde2478bce, type: 3}
 --- !u!54 &1787816834
@@ -711,7 +755,7 @@ GameObject:
   - 4: {fileID: 1978857970}
   - 33: {fileID: 1978857972}
   - 23: {fileID: 1978857971}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
