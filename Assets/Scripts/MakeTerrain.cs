@@ -21,11 +21,20 @@ public class MakeTerrain : MonoBehaviour
 	public int seed = 0;
 	public string qualitySetting = "medium";
 	public Terrain terrain;
+	public bool regenerateTerrain = true;
 
 	// Use this for initialization
 	void Start ()
 	{
-		//GenerateTerrain();
+		if(regenerateTerrain)
+			GenerateTerrain();
+		
+		// This is temporary, to disable the gui text.
+		foreach ( GameObject guiObject in GameObject.FindGameObjectsWithTag( "Disable" ) ) 
+		{
+			Debug.Log(guiObject);
+			guiObject.guiText.enabled = false;
+		}
 	}
 	
 	/// <summary>

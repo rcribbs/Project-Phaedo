@@ -86,9 +86,9 @@ GameObject:
   - 54: {fileID: 521585992}
   - 64: {fileID: 521585993}
   - 114: {fileID: 521585994}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ryder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - 4: {fileID: 603759458}
   - 33: {fileID: 603759457}
   - 23: {fileID: 603759456}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - 132: {fileID: 802932918}
   m_Layer: 0
   m_Name: GUI Text
-  m_TagString: Untagged
+  m_TagString: Disable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -282,6 +282,7 @@ GameObject:
   - 92: {fileID: 1443444122}
   - 124: {fileID: 1443444121}
   - 81: {fileID: 1443444120}
+  - 114: {fileID: 1443444125}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -349,6 +350,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1443444125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1443444119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b0fac9b055044820a75619fbbe831fc, type: 3}
+  m_Name: 
+  target: {fileID: 521585989}
+  dampTime: .300000012
+  distance: 10
+  lookSpeed: 60
+  inverted: 0
 --- !u!1 &1460118934
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,6 +474,7 @@ MonoBehaviour:
   seed: 702
   qualitySetting: medium
   terrain: {fileID: 1675022856}
+  regenerateTerrain: 0
 --- !u!1 &1675022854
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,7 +550,7 @@ GameObject:
   - 132: {fileID: 1725425722}
   m_Layer: 0
   m_Name: GUI Text
-  m_TagString: Untagged
+  m_TagString: Disable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -662,7 +679,7 @@ GameObject:
   - 132: {fileID: 1950819425}
   m_Layer: 0
   m_Name: GUI Text
-  m_TagString: Untagged
+  m_TagString: Disable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -732,6 +749,18 @@ Prefab:
     - target: {fileID: 400002, guid: 2c236d3274d3b4618a62dcbde2478bce, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 2c236d3274d3b4618a62dcbde2478bce, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 2c236d3274d3b4618a62dcbde2478bce, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 2c236d3274d3b4618a62dcbde2478bce, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c236d3274d3b4618a62dcbde2478bce, type: 3}

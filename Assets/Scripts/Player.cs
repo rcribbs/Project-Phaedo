@@ -137,7 +137,6 @@ public class Player : MonoBehaviour
 	/// </summary>
 	private void MoveInAir()
 	{
-		Debug.Log("You are in the air");
 		Vector3 velocityChange = new Vector3( Input.GetAxisRaw( "Horizontal" ) * MidAirSpeed,
 												0,
 												Input.GetAxisRaw( "Vertical" ) * MidAirSpeed );
