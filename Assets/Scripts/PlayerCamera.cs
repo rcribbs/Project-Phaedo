@@ -18,7 +18,8 @@ public class PlayerCamera : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
+		if( !target )
+			Debug.LogError( "The camera target has not been set!" );
 	}
 	
 	// Update is called once per frame
@@ -32,6 +33,7 @@ public class PlayerCamera : MonoBehaviour
 				ThirdPersonCameraMode();
 		}
 	}
+	
 	/// <summary>
 	/// Manipulates camera position based on mouse inputs for first person mode.
 	/// </summary>

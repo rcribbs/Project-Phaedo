@@ -123,8 +123,7 @@ public class Player : MonoBehaviour
 		}
 //------------------- Rohan: This is where my modifications end. --------------------------------------------
 		
-		/*
-		 * Rohan: I've preserved your code down here.
+		/* Rohan: I've preserved your code down here.
 		Vector3 targetVelocity = new Vector3( Input.GetAxisRaw( "Horizontal" ) * WalkSpeed - rigidbody.velocity.x,
 										0,
 										Input.GetAxisRaw( "Vertical" ) * WalkSpeed - rigidbody.velocity.z );
