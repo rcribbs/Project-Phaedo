@@ -14,12 +14,15 @@ public class PlayerCamera : MonoBehaviour
 	private float cameraVerticalOffset = 0;
 	private bool inFirstPersonMode = true;
 	private static int DefaultCulling = -1;
+	private int mousewheel = 0;
+	private float scrollOffset = 0;
  
 	// Use this for initialization
 	void Start ()
 	{
 		if( !target )
 			Debug.LogError( "The camera target has not been set!" );
+		Screen.showCursor = false;
 	}
 	
 	// Update is called once per frame
@@ -60,9 +63,58 @@ public class PlayerCamera : MonoBehaviour
 		transform.position = new Vector3 (target.transform.position.x, 3.5f + target.transform.position.y, target.transform.position.z);
 		// Set rotation to the current looking direction.
 		transform.rotation = Quaternion.Euler (new Vector3 (cameraVerticalOffset, cameraHorizontalOffset, 0));
+		// This means that the mousewheel is being moved towards the user aka zooming out.
+		if (Input.GetAxis("Mouse ScrollWheel") > 0)
+		{
+			if (mousewheel > 3)
+				inFirstPersonMode = false;
+			else
+			{
+				Debug.Log(mousewheel);
+				if (mousewheel == 0)
+				{
+					Debug.Log("Inside if!");
+					StartCoroutine(ResetMouseWheel());
+				}
+				mousewheel += 1;
+			}
+		}
 	}
 	
 	void ThirdPersonCameraMode()
 	{
+		camera.cullingMask = DefaultCulling;
+		// Compensate for inverted or standard vertical look.
+		int invert = -1;
+		if (inverted)
+			invert = 1;
+		// Set the horizontal and vertical offsets for look directions.
+		cameraHorizontalOffset += Input.GetAxis ("Mouse X") * lookSpeed * Time.deltaTime;
+		cameraVerticalOffset += Input.GetAxis ("Mouse Y") * lookSpeed * Time.deltaTime * invert;
+		// Enforce the boundaries for looking up and down.
+		if (cameraVerticalOffset > 90)
+			cameraVerticalOffset = 90;
+		else if (cameraVerticalOffset <= 0)
+			cameraVerticalOffset = 0;
+		// Set the target's rotation.
+		Player targetScript = (Player)target.GetComponent ("Player");
+		targetScript.rotatePlayer (cameraHorizontalOffset);
+		float zoomOffset = -5 + scrollOffset;
+		// Move to the target's location.
+		transform.position = new Vector3 (target.transform.position.x, 2.0f + target.transform.position.y, target.transform.position.z) + transform.forward * zoomOffset;
+		// Set rotation to the current looking direction.
+		transform.rotation = Quaternion.Euler (new Vector3 (cameraVerticalOffset, cameraHorizontalOffset, 0));
+		if ((scrollOffset > -15) && Input.GetAxis("Mouse ScrollWheel") > 0)
+			scrollOffset -= Input.GetAxis("Mouse ScrollWheel");
+		if ((scrollOffset < 0) && Input.GetAxis("Mouse ScrollWheel") < 0)
+			scrollOffset -= Input.GetAxis("Mouse ScrollWheel");
+	}
+		
+	IEnumerator ResetMouseWheel()
+	{
+		Debug.Log("Starting mouswheel wait!");
+		yield return new WaitForSeconds(4.0f);
+		mousewheel = 0;
+		Debug.Log("Reset mousewheel parameter!");
 	}
 }
