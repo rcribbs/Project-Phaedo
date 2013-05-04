@@ -31,7 +31,10 @@ public class PlayerCamera : MonoBehaviour
 		if (target)
 		{
 			if (inFirstPersonMode)
+			{
 				FirstPersonCameraMode();
+				CheckAttack();
+			}
 			else
 				ThirdPersonCameraMode();
 		}
@@ -67,13 +70,15 @@ public class PlayerCamera : MonoBehaviour
 		if (Input.GetAxis("Mouse ScrollWheel") > 0)
 		{
 			if (mousewheel > 3)
+			{
 				inFirstPersonMode = false;
+				mousewheel = 0;
+			}
 			else
 			{
 				Debug.Log(mousewheel);
 				if (mousewheel == 0)
 				{
-					Debug.Log("Inside if!");
 					StartCoroutine(ResetMouseWheel());
 				}
 				mousewheel += 1;
@@ -108,6 +113,45 @@ public class PlayerCamera : MonoBehaviour
 			scrollOffset -= Input.GetAxis("Mouse ScrollWheel");
 		if ((scrollOffset < 0) && Input.GetAxis("Mouse ScrollWheel") < 0)
 			scrollOffset -= Input.GetAxis("Mouse ScrollWheel");
+		if ((Input.GetAxis("Mouse ScrollWheel") < 0) && scrollOffset >= 0)
+		{
+			if (mousewheel > 6)
+			{
+				inFirstPersonMode = true;
+				mousewheel = 0;
+			}
+			else
+			{
+				Debug.Log(mousewheel);
+				if (mousewheel == 0)
+				{
+					Debug.Log("Inside if!");
+					StartCoroutine(ResetMouseWheel());
+				}
+				mousewheel += 1;
+			}
+		}
+	}
+	
+	void CheckAttack()
+	{
+		if(Input.GetButtonDown("Fire1"))
+		{
+			float pokeForce = 350;
+			RaycastHit hit;
+			Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+			if (Physics.Raycast(ray, out hit))
+			{
+                if (hit.rigidbody != null)
+				{
+					Debug.Log("Yahtzee! You hit: " + hit.rigidbody.name + "!");
+					hit.rigidbody.AddForceAtPosition(ray.direction * pokeForce, hit.point);
+				}
+				else
+					Debug.Log("You hit nothing! :(");
+                   // hit.rigidbody.AddForceAtPosition(ray.direction * pokeForce, hit.point);
+			}
+		}
 	}
 		
 	IEnumerator ResetMouseWheel()

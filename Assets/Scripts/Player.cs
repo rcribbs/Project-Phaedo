@@ -19,7 +19,8 @@ public class Player : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		
+		Terrain theMap = GameObject.FindGameObjectWithTag("Map").GetComponent<Terrain>();
+		transform.position = new Vector3(transform.position.x,  theMap.SampleHeight(transform.position) + 10 ,transform.position.z);
 	}
 	
 	// Update is called once per frame
