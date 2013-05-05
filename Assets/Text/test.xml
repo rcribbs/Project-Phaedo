@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ArrayOfDamagableAttribute>
+  <DamagableAttribute>
+    <Key>str</Key>
+    <Value>75</Value>
+  </DamagableAttribute>
+</ArrayOfDamagableAttribute>
