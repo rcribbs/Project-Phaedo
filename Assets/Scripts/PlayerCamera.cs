@@ -58,7 +58,7 @@ public class PlayerCamera : MonoBehaviour
 			cameraVerticalOffset = -90;
 		// Set the target's rotation.
 		Player targetScript = (Player)target.GetComponent ("Player");
-		targetScript.rotatePlayer (cameraHorizontalOffset);
+		targetScript.rotatePlayer (new Vector3(0, cameraHorizontalOffset, 0));
 		// Move to the target's location.
 		transform.position = new Vector3 (target.transform.position.x, 3.5f + target.transform.position.y, target.transform.position.z);
 		// Set rotation to the current looking direction.
@@ -98,7 +98,7 @@ public class PlayerCamera : MonoBehaviour
 			cameraVerticalOffset = 0;
 		// Set the target's rotation.
 		Player targetScript = (Player)target.GetComponent ("Player");
-		targetScript.rotatePlayer (cameraHorizontalOffset);
+		targetScript.rotatePlayer (new Vector3(0, cameraHorizontalOffset, 0));
 		float zoomOffset = -5 + scrollOffset;
 		// Move to the target's location.
 		transform.position = new Vector3 (target.transform.position.x, 2.0f + target.transform.position.y, target.transform.position.z) + transform.forward * zoomOffset;
