@@ -8,3 +8,4 @@
 *.sln
 Assembly-CSharp.pidb
 Project Phaedo.userprefs
+.DS_Store
