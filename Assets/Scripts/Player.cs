@@ -23,12 +23,15 @@ public class Player : MonoBehaviour
     bool m_TouchingGround = true;
     private float m_horizontalRotation = 0;
     private bool isWalking = false;
+	
+	void Awake ()
+	{
+		controlEnabled = false;
+	}
  
     // Use this for initialization
     void Start ()
     {
-		controlEnabled = false;
-    	
         Terrain theMap = GameObject.FindGameObjectWithTag ("Map").GetComponent<Terrain> ();
         transform.position = new Vector3 (transform.position.x, theMap.SampleHeight (transform.position) + 10, transform.position.z);
         
