@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
 		 * Just send transform.rotation updates to the server. */
 		
 		// tell server this client's input
-		this.networkView.RPC("UpdateClientInput", RPCMode.AllBuffered, verticalInput, horizontalInput, transform.rotation, jumpInput);
+		this.networkView.RPC("UpdateClientInput", RPCMode.Server, verticalInput, horizontalInput, transform.rotation, jumpInput);
 		
 		// update client simulation
 		ProcessPlayerInput(verticalInput, horizontalInput, Quaternion.identity, jumpInput);

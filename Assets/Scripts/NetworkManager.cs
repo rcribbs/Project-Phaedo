@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class NetworkManager : MonoBehaviour {
 	
@@ -9,6 +10,8 @@ public class NetworkManager : MonoBehaviour {
 	public GameObject playerPrefab;
 	
 	int playerCount = 0;
+	
+	private Dictionary<NetworkPlayer, GameObject> playerObjectDictionary = new Dictionary<NetworkPlayer, GameObject>();
 
 	// Use this for initialization
 	void Start ()
@@ -38,14 +41,33 @@ public class NetworkManager : MonoBehaviour {
 	
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-		Debug.Log( "Player connected from: " + player.externalIP );
+		Debug.Log( "Player connecting from: " + player.externalIP );
 		playerCount++;
 		
 		GameObject playerObject = (GameObject) Network.Instantiate( playerPrefab, new Vector3(82, 28, 294), Quaternion.identity, 0 );
+		
+		// keep track of what client controls what GameObject player, since server technically owns all
+		playerObjectDictionary[player] = playerObject;
 		
 		NetworkView networkView = playerObject.GetComponent<NetworkView>();
 		networkView.RPC( "SetOwner", RPCMode.AllBuffered, player );
 	}
 	
-	
+	void OnPlayerDisconnected(NetworkPlayer player)
+	{
+		Debug.Log("Player disconnecting from: " + player.externalIP);
+		playerCount--;
+		
+		Network.RemoveRPCs(player);
+		
+		try
+		{
+			Network.Destroy(playerObjectDictionary[player]);
+			playerObjectDictionary.Remove(player);
+		}
+		catch (KeyNotFoundException)
+		{
+			Debug.LogError("NetworkPlayer not found: " + player.externalIP + ", " + player.ToString());
+		}
+	}
 }
