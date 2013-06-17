@@ -41,8 +41,6 @@ public class PlayerManager : MonoBehaviour {
 	[RPC]
 	public void UpdateClientInput(float verticalAxis, float horizontalAxis, Quaternion rotation, bool jump) //give client 100% rotation control
 	{
-		Debug.Log ("Player input received");
-		
 		this.verticalAxisInput = verticalAxis;
 		this.horizontalAxisInput = horizontalAxis;
 		this.rotation = rotation;

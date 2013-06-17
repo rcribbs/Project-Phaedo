@@ -175,34 +175,34 @@ public class Player : MonoBehaviour
 	/// </summary>
 	private void MoveOnGround(float vertical, float horizontal)
 	{
-//------------------- Rohan: Modified your code a little to work better with rotation. -------------------
-        // Only apply impulses if we're actually pressing the key.
-        if ((vertical != 0) || (horizontal != 0))
-        {
-            // Use the rotation of the character in the calculation for which direction is forward/backward/left/right.
-            Vector3 forwardVelocity = transform.forward * vertical * Time.deltaTime * WalkSpeed;
-            Vector3 sideVelocity = transform.right * horizontal * Time.deltaTime * WalkSpeed;
-            // The target velocity is the sum of these two velocities.
-            Vector3 targetVelocity = forwardVelocity + sideVelocity;
-            rigidbody.AddForce (targetVelocity, ForceMode.VelocityChange);
-            // Signify that we have pressed the key, so releasing the key will cause the player to stop.
-            isWalking = true;
-        }
-        else if (m_TouchingGround && isWalking)
-         // If we were walking and we're currently touching the ground, half the player's speed
-         // so that they can transition into a stop more naturally.
-        {
-            rigidbody.velocity = rigidbody.velocity * .5f;
-            isWalking = false;
-        }
-//------------------- Rohan: This is where my modifications end. --------------------------------------------
+////------------------- Rohan: Modified your code a little to work better with rotation. -------------------
+//        // Only apply impulses if we're actually pressing the key.
+//        if ((vertical != 0) || (horizontal != 0))
+//        {
+//            // Use the rotation of the character in the calculation for which direction is forward/backward/left/right.
+//            Vector3 forwardVelocity = transform.forward * vertical * Time.deltaTime * WalkSpeed;
+//            Vector3 sideVelocity = transform.right * horizontal * Time.deltaTime * WalkSpeed;
+//            // The target velocity is the sum of these two velocities.
+//            Vector3 targetVelocity = forwardVelocity + sideVelocity;
+//            rigidbody.AddForce (targetVelocity, ForceMode.VelocityChange);
+//            // Signify that we have pressed the key, so releasing the key will cause the player to stop.
+//            isWalking = true;
+//        }
+//        else if (m_TouchingGround && isWalking)
+//         // If we were walking and we're currently touching the ground, half the player's speed
+//         // so that they can transition into a stop more naturally.
+//        {
+//            rigidbody.velocity = rigidbody.velocity * .5f;
+//            isWalking = false;
+//        }
+////------------------- Rohan: This is where my modifications end. --------------------------------------------
 		
-		/* Rohan: I've preserved your code down here.
-		Vector3 targetVelocity = new Vector3( Input.GetAxisRaw( "Horizontal" ) * WalkSpeed - rigidbody.velocity.x,
-										0,
-										Input.GetAxisRaw( "Vertical" ) * WalkSpeed - rigidbody.velocity.z );
-		rigidbody.AddForce( targetVelocity , ForceMode.VelocityChange );
-		*/
+		/** Justin: to use Rigidbodies (instead of CharacterControllers), impulses must be continuously applied for responsive movement.
+		 * Let's switch to CharacterController if physics calculation load becomes a problem. */
+		
+		Vector3 deltaVelocity = GetDeltaVelocity(vertical, horizontal, WalkSpeed);
+		
+		rigidbody.AddForce(deltaVelocity , ForceMode.VelocityChange);
 	}
 	
 	/// <summary>
@@ -210,10 +210,19 @@ public class Player : MonoBehaviour
 	/// </summary>
 	private void MoveInAir(float vertical, float horizontal)
 	{
-		Vector3 velocityChange = new Vector3( horizontal * MidAirSpeed,
-												0,
-												vertical * MidAirSpeed );
-		rigidbody.AddForce( velocityChange );
+		Vector3 deltaVelocity = GetDeltaVelocity(vertical, horizontal, MidAirSpeed);
+		
+		rigidbody.AddForce(deltaVelocity);
+	}
+	
+	private Vector3 GetDeltaVelocity(float vertical, float horizontal, float moveSpeed)
+	{
+		Vector3 targetForwardVelocity = transform.forward.normalized * vertical * moveSpeed;
+		Vector3 currentForwardVelocity = Vector3.Project(rigidbody.velocity, transform.forward.normalized);
+		Vector3 targetSideVelocity = transform.right.normalized * horizontal * moveSpeed;
+		Vector3 currentSideVelocity = Vector3.Project(rigidbody.velocity, transform.right.normalized);
+		
+		return (targetForwardVelocity - currentForwardVelocity) + (targetSideVelocity - currentSideVelocity);
 	}
 	
 	void OnNetworkInstantiate(NetworkMessageInfo networkMessageInfo)
